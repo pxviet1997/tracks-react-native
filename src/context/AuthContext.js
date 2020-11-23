@@ -10,7 +10,9 @@ const reducer = (state, action) => {
     case 'add_error':
       return { ...state, errorMessage: action.payload };
     case 'clear_error_message':
-      return { ...state, errorMessage: '' }
+      return { ...state, errorMessage: '' };
+    case 'sign_out':
+      return { token: null, errorMessage: '' };
     default:
       return state;
   }
@@ -53,7 +55,14 @@ const signIn = (dispatch) => async ({ email, password }) => {
   }
 };
 
-const signOut = (dispatch) => () => {
+const signOut = (dispatch) => async () => {
+  try {
+    await AsyncStorage.removeItem('token');
+    dispatch({ type: 'sign_out' });
+    navigate('loginFlow');
+  } catch (err) {
+
+  }
 
 };
 
