@@ -11,13 +11,14 @@ const reducer = (state, action) => {
 
 const fetchTracks = (dispatch) => () => { };
 
-const createtrack = (dispatch) => (name, locations) => {
-  dispatch({ type: 'create_track' })
+const createTrack = (dispatch) => async (name, locations) => {
+  await trackerApi.post('/tracks', { name, locations });
+
 };
 
 
 export const { Context, Provider } = createDataContext(
   reducer,
-  { fetchTracks, createtrack },
+  { fetchTracks, createTrack },
   []
 );
